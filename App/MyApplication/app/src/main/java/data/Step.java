@@ -1,7 +1,5 @@
 package data;
 
-import android.text.format.Time;
-
 import java.io.Serializable;
 
 /**
