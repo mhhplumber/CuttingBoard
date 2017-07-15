@@ -1,24 +1,25 @@
 package angelhack.cuttingboard;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import data.Ingredient;
 import data.Recipe;
+import data.Step;
 
 /**
  * Created by William Zulueta on 7/15/17.
  */
 
-public class MainFragment extends Fragment
+public class MainFragment extends Fragment implements RecipeListAdapter.OnRecipeSelectedListener
 {
     // DATA
     private ArrayList<Recipe> _recipes;
@@ -38,6 +39,7 @@ public class MainFragment extends Fragment
 
         _listView = (ListView) _view.findViewById(R.id.listView);
         _adapter = new RecipeListAdapter(_recipes, getActivity());
+        _adapter.setOnRecipeSelectedListener(this);
         _listView.setAdapter(_adapter);
 
         return _view;
@@ -46,8 +48,24 @@ public class MainFragment extends Fragment
     private void initRecipes() //TODO PARSE JSON
     {
         _recipes = new ArrayList<>();
-        Ingredient[] ingredients1 = new Ingredient[5];
-        Recipe recipe1 = new Recipe("Recipe 1", "45:00", );
+
+        _recipes.add(generateRecipe("Recipe 1"));
+        _recipes.add(generateRecipe("Recipe 2"));
+        _recipes.add(generateRecipe("Recipe 3"));
+        _recipes.add(generateRecipe("Recipe 4"));
+        _recipes.add(generateRecipe("Recipe 5"));
+    }
+
+    private Recipe generateRecipe(String name)
+    {
+        Ingredient[] ingredients1 = new Ingredient[1];
+        ingredients1[0] = new Ingredient("Ingredient", 10, "unit");
+        Step[] steps = new Step[1];
+        Time time = new Time();
+        time.set(0, 10, 0, 0, 0, 0);
+        steps[0] = new Step("Instructions", time);
+        Recipe recipe1 = new Recipe(name, "45:00", ingredients1, steps);
+        return recipe1;
     }
 
     public static MainFragment createFragment()
@@ -55,24 +73,13 @@ public class MainFragment extends Fragment
         return new MainFragment();
     }
 
-    class RecipeListAdapter extends ArrayAdapter<Recipe>
+    @Override
+    public void onRecipeSelected(Recipe recipe)
     {
-        private ArrayList<Recipe> _recipes;
-
-        public RecipeListAdapter(ArrayList<Recipe> recipes, Context context)
-        {
-            super(context, R.layout.list_card, recipes);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            if (convertView == null)
-            {
-                convertView = View.inflate(getContext(), R.layout.list_card, null);
-            }
-            return convertView;
-        }
-
+        RecipeFragment recipeFragment = RecipeFragment.createFragment(recipe);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer, recipeFragment);
+        fragmentTransaction.addToBackStack("Main");
+        fragmentTransaction.commit();
     }
 }

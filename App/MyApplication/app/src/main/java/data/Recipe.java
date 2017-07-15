@@ -1,10 +1,12 @@
 package data;
 
+import java.io.Serializable;
+
 /**
  * Created by William Zulueta on 7/15/17.
  */
 
-public class Recipe
+public class Recipe implements Serializable
 {
     private String _name;
     private String _time;
