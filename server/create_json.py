@@ -10,3 +10,5 @@ def main():
 def create_json(dictionary):
     json = json.dumps(dictionary)
     print(json)
+
+main()
