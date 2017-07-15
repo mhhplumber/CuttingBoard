@@ -4,22 +4,18 @@ from urllib.request import urlopen
 
 my_url = "http://food2fork.com/api/search"
 
-# def main():
-#     get_url("chicken", "511b874130772a9a0775f18fa6822b9e", 'r')
-#     print(my_url)
+def main():
+    get_url("chicken", "511b874130772a9a0775f18fa6822b9e")
+    print("hello")
+    print(my_url)
 
-def get_url(q, api_id, sort):
+def get_url(q, api_id):
     global my_url
-    my_url += "?key="
+    my_url += "?key=" + api_id
     my_url += "&q=" + q
-    if (sort == 'r' or sort == 't'):
-        my_url += "&sort=" + sort
+    return json.loads(urlopen(my_url, data=None, cafile=None, capath=None, cadefault=False, context=None))
 
-    obj_str = urlopen(my_url);
-
-    return json.loads(obj_str);
-
-# main()
+main()
 
 
 
