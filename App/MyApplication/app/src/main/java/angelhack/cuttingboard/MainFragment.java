@@ -3,7 +3,6 @@ package angelhack.cuttingboard;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.format.Time;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +60,7 @@ public class MainFragment extends Fragment implements RecipeListAdapter.OnRecipe
         Ingredient[] ingredients1 = new Ingredient[1];
         ingredients1[0] = new Ingredient("Ingredient", 10, "unit");
         Step[] steps = new Step[1];
-        Time time = new Time();
-        time.set(0, 10, 0, 0, 0, 0);
+        data.Time time = new data.Time(1, 30, 0);
         steps[0] = new Step("Instructions", time);
         Recipe recipe1 = new Recipe(name, "45:00", ingredients1, steps);
         return recipe1;

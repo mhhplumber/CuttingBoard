@@ -5,16 +5,51 @@
               android:orientation="vertical"
               android:padding="12dp">
 
-    <TextView
-        android:id="@+id/recipeTitle"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <TextView
+            android:id="@+id/recipeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:text="Recipe"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/recipeTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:text="Time"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/recipeImageVeiw"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/recipeIngredientView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:padding="4dp"></LinearLayout>
+
+    <Button
+        android:id="@+id/recipeButton"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recipe"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
-
-    <!--<TextureView-->
-        <!--android:layout_width=""-->
-        <!--android:layout_height=""/>-->
+        android:background="@drawable/rounded_corners"
+        android:text="Ready"/>
 
 </LinearLayout>
