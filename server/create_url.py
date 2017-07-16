@@ -3,15 +3,15 @@ import json
 from urllib.request import urlopen
 import requests
 
-my_url = "http://food2fork.com/api/search"
+
 
 ##def main():
 ##    get_url("chicken", "511b874130772a9a0775f18fa6822b9e")
 ##    print("hello")
 ##    print(my_url)
 
-def get_url(q, api_id):
-    global my_url
+def get_url(q, api_id, my_url):
+    my_url = "http://food2fork.com/api/search"
     my_url += "?key=" + api_id
     my_url += "&q=" + q
 
