@@ -9,10 +9,10 @@ import java.io.Serializable;
 public class Ingredient implements Serializable
 {
     private String _name;
-    private int _quantity;
+    private String _quantity;
     private String _unit;
 
-    public Ingredient(String name, int quantity, String unit)
+    public Ingredient(String name, String quantity, String unit)
     {
         _name = name;
         _quantity = quantity;
@@ -24,7 +24,7 @@ public class Ingredient implements Serializable
         return _name;
     }
 
-    public int getQuantity()
+    public String getQuantity()
     {
         return _quantity;
     }

@@ -53,11 +53,12 @@ public class Time implements Serializable
 
     public static Time parse(String time, String format)
     {
-        int hours = Integer.parseInt(time.substring(format.indexOf('h'), format.lastIndexOf('h')));
-        int minutes = Integer.parseInt(time.substring(format.indexOf('m'), format.lastIndexOf('m')));
-        int seconds = Integer.parseInt(time.substring(format.indexOf('s'), format.lastIndexOf('s')));
-        Log.i("TimeParser", "hours : " + hours + ", minutes : " + minutes + ", seconds " + seconds);
-        return new Time(hours, minutes, seconds);
+        Log.i("TimeParser", "Initial time : " + time);
+        int hours = Integer.parseInt(time.substring(format.indexOf('h'), format.lastIndexOf('h') + 1));
+        int minutes = Integer.parseInt(time.substring(format.indexOf('m'), format.lastIndexOf('m') + 1));
+//        int seconds = Integer.parseInt(time.substring(format.indexOf('s'), format.lastIndexOf('s')));
+        Log.i("TimeParser", "hours : " + hours + ", minutes : " + minutes);
+        return new Time(hours, minutes, 0);
     }
 
     public long toSeconds()

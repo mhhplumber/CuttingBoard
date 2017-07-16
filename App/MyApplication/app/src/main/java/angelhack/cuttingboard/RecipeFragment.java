@@ -1,5 +1,6 @@
 package angelhack.cuttingboard;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import data.ImageLoader;
 import data.Ingredient;
 import data.Recipe;
 
@@ -17,7 +20,7 @@ import data.Recipe;
  * Created by William Zulueta on 7/15/17.
  */
 
-public class RecipeFragment extends Fragment implements View.OnClickListener
+public class RecipeFragment extends Fragment implements View.OnClickListener, ImageLoader.OnImageLoadedListener
 {
     private static final String ARG_RECIPE = "arg_recipe";
     private Recipe _recipe;
@@ -25,6 +28,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener
     private View _view;
     private TextView _titleView;
     private TextView _timeView;
+    private ImageView _imageView;
     private Button _readyButton;
     private LinearLayout _ingredientLayout;
 
@@ -46,6 +50,11 @@ public class RecipeFragment extends Fragment implements View.OnClickListener
 
         _timeView = (TextView) _view.findViewById(R.id.recipeTime);
         _timeView.setText("Time to cook : " + _recipe.getTime());
+
+        _imageView = (ImageView) _view.findViewById(R.id.recipeImageVeiw);
+        ImageLoader imageLoader = new ImageLoader();
+        imageLoader.setOnImageLoadedListener(this);
+        imageLoader.loadImage(_recipe);
 
         _ingredientLayout = (LinearLayout) _view.findViewById(R.id.recipeIngredientView);
         addIngredients();
@@ -85,5 +94,19 @@ public class RecipeFragment extends Fragment implements View.OnClickListener
         fragmentTransaction.addToBackStack("Recipe");
         fragmentTransaction.replace(R.id.fragmentContainer, stepFragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onImageLoaded(Recipe recipe, final Bitmap bitmap)
+    {
+        getActivity().runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (bitmap != null)
+                    _imageView.setImageBitmap(bitmap);
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ package angelhack.cuttingboard;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,11 +70,18 @@ public class StepFragment extends Fragment implements View.OnClickListener
     {
         Step step = _steps[_currentIndex];
         _title.setText("Step " + (_currentIndex + 1));
-        _fullTime.setText("Estimated Time : " + step.getTime()
-                .toString());
+        _fullTime.setText("Estimated Time : " + step.getTime().toString());
         _instr.setText(step.getInstr());
         _time.setText(step.getTime()
                 .toString());
+        if (_timer != null)
+        {
+            _inProgress = false;
+            _second = 0;
+        }
+
+        _startButton.setText("Start");
+        //        _timer = new Timer();
     }
 
     private long _second;
@@ -90,14 +98,10 @@ public class StepFragment extends Fragment implements View.OnClickListener
                     if (_inProgress)
                     {
                         ++_second;
-                        _time.setText(Time.fromSeconds(_steps[_currentIndex].getTime()
-                                .toSeconds() - _second)
-                                .toString());
-                        if (_second >= _steps[_currentIndex].getTime()
-                                .toSeconds())
+                        _time.setText(Time.fromSeconds(_steps[_currentIndex].getTime().toSeconds() - _second).toString());
+                        if (_second >= _steps[_currentIndex].getTime().toSeconds())
                         {
-                            Toast.makeText(getActivity(), "Step Finished", Toast.LENGTH_SHORT)
-                                    .show();
+                            Toast.makeText(getActivity(), "Step Finished", Toast.LENGTH_SHORT).show();
                             _timer.cancel();
                             _timer.purge();
                             _timer = null;
@@ -159,6 +163,12 @@ public class StepFragment extends Fragment implements View.OnClickListener
             {
                 ++_currentIndex;
                 initViewForStep();
+            } else if (_currentIndex + 1 >= _steps.length)
+            {
+                FinishedFragment finishedFragment = new FinishedFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainer, finishedFragment);
+                fragmentTransaction.commit();
             }
         }
     }
