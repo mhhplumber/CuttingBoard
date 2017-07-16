@@ -14,7 +14,15 @@ def get_url(q, api_id):
     global my_url
     my_url += "?key=" + api_id
     my_url += "&q=" + q
+
     return json.loads(urlopen(my_url, data=None, cafile=None, capath=None, cadefault=False, context=None))
 
-#main()
+    if (sort == 'r' or sort == 't'):
+        my_url += "&sort=" + sort
+
+    obj_str = urlopen(my_url);
+    
+    return json.loads(obj_str);
+
+# main()
 
