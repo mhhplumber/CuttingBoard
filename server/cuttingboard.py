@@ -9,9 +9,9 @@ def read_review(string):
     words = word_tokenize(string)
     print(words)
     
-    salty = ["salt"]
-    sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla"]
-    spicy = ["pepper", "spice", "chile"]
+    salty = ["salt", "salty"]
+    sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla", "sugary"]
+    spicy = ["pepper", "spice", "chile", "spicy"]
 
              
     if "spicy"  in words:
@@ -21,7 +21,7 @@ def read_review(string):
              
     if "salty"  in words:
         seasoning = words.index("salty")
-        change = adj_before(seasoning, words)\
+        change = adj_before(seasoning, words)
         amount(change,salty)
         
     if "sweet" in words:
