@@ -1,66 +1,61 @@
 from nltk.tokenize import word_tokenize
+from steps import ingredients
 
 def main():
     read_review("this is too spicy")
 
 def read_review(string):
+    
     words = word_tokenize(string)
     print(words)
     
+    salty = ["salt"]
+    sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla"]
+    spicy = ["pepper", "spice", "chile"]
+
+             
     if "spicy"  in words:
         seasoning = words.index("spicy")
         change = adj_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
-        if change<0
-            #subtract .25 from measurement
-
+        amount(change,spicy)
+             
     if "salty"  in words:
         seasoning = words.index("salty")
-        change = adj_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
-
-        if change<0
-            #subtract .25 from measurement
+        change = adj_before(seasoning, words)\
+        amount(change,salty)
         
     if "sweet" in words:
         seasoning = words.index("sweet")
         change = adj_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
+        amount(change,sweet)
+        
 
-        if change<0
-            #subtract .25 from measurement
-
-##########################################################
+        ##########################################################
 
     if "spice"  in words:
         seasoning = words.index("spice")
         change = nouns_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
-        if change<0
-            #subtract .25 from measurement
-
+        amount(change,spicy)
+             
     if "salt"  in words:
         seasoning = words.index("salt")
         change = nouns_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
-
-        if change<0
-            #subtract .25 from measurement
+        amount(change,salty)
+        
         
     if "sugar" in words:
         seasoning = words.index("sugar")
         change = nouns_before(seasoning, words)
-        if change>0
-            #add .25 from measurement
+        amount(change,sweet)
 
-        if change<0
-            #subtract .25 from measurement
-
+def amount(change,list) 
+    if ingredients[2].lower() in list
+        if change==1
+             ingredient[0]+=0.25
+        if change==-1
+             ingredient[0]-=0.25
+        
+        ##find the average of the changes
 
 def nouns_before(i, words)
     if words[i-1] == "enough"
@@ -79,6 +74,7 @@ def adj_before(i, words)
         return 1
     if words[i-1] == "less"
         return -1
+
 
 
 
