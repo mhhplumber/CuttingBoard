@@ -59,4 +59,24 @@ public class Time implements Serializable
         Log.i("TimeParser", "hours : " + hours + ", minutes : " + minutes + ", seconds " + seconds);
         return new Time(hours, minutes, seconds);
     }
+
+    public long toSeconds()
+    {
+        return (_hours * 3600) + (_minutes * 60) + _seconds;
+    }
+
+    public static Time fromSeconds(long seconds)
+    {
+        long hours = seconds / 3600;
+        seconds %= 3600;
+        long minutes = seconds / 60;
+        seconds %= 60;
+        return new Time((int) hours, (int) minutes, (int) seconds);
+    }
+
+    @Override
+    public String toString()
+    {
+        return _hours + ":" + _minutes + ":" + _seconds;
+    }
 }

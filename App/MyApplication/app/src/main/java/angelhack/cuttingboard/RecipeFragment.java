@@ -2,6 +2,7 @@ package angelhack.cuttingboard;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-
+        StepFragment stepFragment = StepFragment.createFragment(_recipe.getSteps());
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack("Recipe");
+        fragmentTransaction.replace(R.id.fragmentContainer, stepFragment);
+        fragmentTransaction.commit();
     }
 }
