@@ -1,19 +1,24 @@
 from nltk.tokenize import word_tokenize
 ##from steps import ingredients ##
-from steps import getSteps
-from create_url import my_url
+from steps import *
+from create_url import *
 
 def main():
     
-    global ingredients = dictionary[0]
+    global ing
+    url = ""
+    get_url("chicken", "511b874130772a9a0775f18fa6822b9e", url)
     ##get the url from the app
-    dictionary = getSteps(my_url)
-    read_review(dictionary)
-
+    print(url)
+    #dictionary = get_steps(url)
+    #ing = dictionary[0]
+    #print(dictionary)
+    #read_review(ing)
+    
 def read_review(string):
     
     words = word_tokenize(string)
-    
+    print(string)
     salty = ["salt", "salty"]
     sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla", "sugary"]
     spicy = ["pepper", "spice", "chile", "spicy"]
@@ -56,45 +61,47 @@ def read_review(string):
         amount(change, sweet, counter_sweet)
 
 
-def amount(change, list, count) 
-    if dictionary[2].lower() in list
-        if change == 1
+def amount(change, wordList, count): 
+    if ing[2].lower() in wordList:
+        if change == 1:
             count[0]+=1
+            
              #dictionary[0]+=0.25
 
-        if change == -1
+        if change == -1:
             count[1]+=1
+           
              #dictionary[0]-=0.25
         count[2]+=1
         
     add = count[0]/count[2] *100
     sub = count[1]/count[2] *100
-    if add >= 70 #if 70 percent of people suggested a change only then will a change to the recipe be made.
-        dictionary[0]+=.25
+    if add >= 70: #if 70 percent of people suggested a change only then will a change to the recipe be made.
+        ing[0]+=.25
         count[0] = 0
         count[1] = 0
-    if sub >= 70 
-        dictionary[0]-=.25
+    if sub >= 70:
+        ing[0]-=.25
         count[0] = 0
         count[1] = 0
         
 
-def nouns_before(i, words)
-    if words[i-1] == "enough"
-        if words[i-2] == "not"
+def nouns_before(i, words):
+    if words[i-1] == "enough":
+        if words[i-2] == "not":
             return 1
-        else
+        else:
             return -1
-    if words[i-1] == "much"
+    if words[i-1] == "much":
         return -1
-    if words[i-1] == "needs"
+    if words[i-1] == "needs":
        return 1
     
 
-def adj_before(i, words)
-    if words[i-1] == "more"
+def adj_before(i, words):
+    if words[i-1] == "more":
         return 1
-    if words[i-1] == "less"
+    if words[i-1] == "less":
         return -1
 
 main()
