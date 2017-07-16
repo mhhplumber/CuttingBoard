@@ -10,7 +10,7 @@ def read_review(string):
     print(words)
     
     salty = ["salt"]
-    sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla""]
+    sweet = ["sugar", "brown sugar", "powdered sugar", "vanilla"]
     spicy = ["pepper", "spice", "chile"]
 
              
