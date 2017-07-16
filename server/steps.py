@@ -8,6 +8,8 @@ from fractions import Fraction
 
 def get_steps(URL):
 	bs =  BeautifulSoup(requests.get(URL).content, 'html.parser')
+	ingredients =[]
+	directions = []
 
 	if ("closetcooking" in URL):
 		ingredients = bs.find_all(itemprop="ingredients")
@@ -15,7 +17,9 @@ def get_steps(URL):
 	elif ("allrecipes" in URL):
 		ingredients = bs.find_all(itemprop="ingredients")
 		directions = bs.find_all({'class':"recipe-directions__list--item"})
-	
+	else:
+		return URL
+
 	for i in range(0, len(ingredients)):
 		ingredients[i] = ingredients[i].get_text()
 		ingredients[i] = ingredients[i].split()
@@ -35,13 +39,13 @@ def get_steps(URL):
 				temp = int(directions[i][j])
 
 			if temp:
-				if d == "hours" or d == "h" :
+				if directions[i][j] == "hours" or directions[i][j] == "h" :
 					time[0] = temp
 					temp = 0
-				elif d == "minutes" or d == "min" or d == "m":
+				elif directions[i][j] == "minutes" or directions[i][j] == "min" or directions[i][j] == "m":
 					time[1] = temp
 					temp = 0
-				elif d =="seconds" or d == "secs" or d == "s":
+				elif directions[i][j] =="seconds" or directions[i][j] == "secs" or directions[i][j] == "s":
 					time[2] = temp
 					temp = 0
 		directions[i] = time + directions[i]
